@@ -2,6 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum EPointOverlap
+{
+    GreenOverlap,
+    BlueOverlap,
+    DoubleOverlap,
+    NoOverlap
+}
+
 public class EX_2_3_MyScript : MonoBehaviour
 {
     private MyIntervalBoundInY GreenInterval = null;    // For visualzing the Green Interval
@@ -19,6 +27,9 @@ public class EX_2_3_MyScript : MonoBehaviour
     private GameObject testPoint;
     private Vector3 testPointVector3;
     public float TestPointY;
+
+    public EPointOverlap PointOverlap;
+    
 
     static Color GreenColor = new Color(0.2f, 0.9f, 0.2f, 0.6f);
     static Color BlueColor = new Color(0.2f, 0.2f, 0.9f, 0.6f);
@@ -45,6 +56,8 @@ public class EX_2_3_MyScript : MonoBehaviour
 
         testPoint = GameObject.Find("RedSphere");
         testPointVector3 = testPoint.transform.position;
+
+        PointOverlap = EPointOverlap.NoOverlap;
     }
 
     // Update is called once per frame
@@ -80,6 +93,26 @@ public class EX_2_3_MyScript : MonoBehaviour
 
         testPointVector3.y = TestPointY;
         testPoint.transform.position = testPointVector3;
+
+        if (TestPointY <= BlueIntervalMax &&
+            TestPointY >= GreenIntervalMin)
+        {
+            PointOverlap = EPointOverlap.DoubleOverlap;
+        }
+        else if (TestPointY <= BlueIntervalMax &&
+            TestPointY >= BlueIntervalMin)
+        {
+            PointOverlap = EPointOverlap.BlueOverlap;
+        }
+        else if (TestPointY <= GreenIntervalMax &&
+            TestPointY >= GreenIntervalMin)
+        {
+            PointOverlap = EPointOverlap.GreenOverlap;
+        }
+        else
+        {
+            PointOverlap = EPointOverlap.NoOverlap;
+        }
     }
 }
 
