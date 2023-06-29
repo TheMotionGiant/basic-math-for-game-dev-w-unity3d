@@ -19,6 +19,8 @@ public class EX_2_1_MyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (IntervalMin >= IntervalMax) { IntervalMin = IntervalMax - 0.1f; }
+
         // Updates AnInteval with values entered by the user
         AnInterval.MinValue = IntervalMin;
         AnInterval.MaxValue = IntervalMax;
