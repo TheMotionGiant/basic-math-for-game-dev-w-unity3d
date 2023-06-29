@@ -27,9 +27,7 @@ public class EX_2_3_MyScript : MonoBehaviour
     private GameObject testPoint;
     private Vector3 testPointVector3;
     public float TestPointY;
-
     public EPointOverlap PointOverlap;
-    
 
     static Color GreenColor = new Color(0.2f, 0.9f, 0.2f, 0.6f);
     static Color BlueColor = new Color(0.2f, 0.2f, 0.9f, 0.6f);
