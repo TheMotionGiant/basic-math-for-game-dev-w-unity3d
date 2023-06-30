@@ -18,7 +18,8 @@ public class EX_2_4_MyScript : MonoBehaviour
     public Vector3 TaxiBoundSize = Vector3.one; // User sets desirable taxi bounding box size
     
     public GameObject TheCar = null;        // Reference to the Car game object
-    public Vector3 CarBoundSize = Vector3.one;  // User sets the desirable car bounding box size
+    public Vector3 CarBoundMin = Vector3.one;  
+    public Vector3 CarBoundMax = Vector3.one;
 
     public Vector3 OverlapBoxMin = Vector3.zero;    // Min position of the overlapping bounding box
     public Vector3 OverlapBoxMax = Vector3.zero;    // Max position of the overlapping bounding box
@@ -51,7 +52,7 @@ public class EX_2_4_MyScript : MonoBehaviour
         TaxiBound.Center = TheTaxi.transform.localPosition + CarCenterOffset;
         TaxiBound.Size = TaxiBoundSize;
         CarBound.Center = TheCar.transform.localPosition + CarCenterOffset; 
-        CarBound.Size = CarBoundSize;
+        CarBound.Size = CarBoundMax - CarBoundMin;
         
         // Step 3: test for intersection ... 
         // Two box bounds overlap when all three intervals overlap ...
