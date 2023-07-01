@@ -7,12 +7,17 @@ public class EX_3_1_MyScript : MonoBehaviour
     #region Public Variables
     public GameObject Checker = null;         // The spheres to work with
     public GameObject Stripe = null;
+    public GameObject Third = null;
 
     public Vector3 CheckerPosition = Vector3.zero;
     public Vector3 StripePosition = Vector3.zero;
+    public Vector3 ThirdPosition = Vector3.zero;
     
     public float DistanceBetween = 0.0f;
     public float MagnitudeOfVector = 0.0f;
+
+    public float DistanceCAndT = 0.0f;
+    public float DistanceSAndT = 0.0f;
     #endregion 
 
     // Start is called before the first frame update
@@ -20,6 +25,7 @@ public class EX_3_1_MyScript : MonoBehaviour
     {
 		Debug.Assert(Checker!= null);	// Make sure proper editor setup
         Debug.Assert(Stripe != null);   // Make sure proper editor setup
+        Debug.Assert(Third != null);
     }
 
     // Update is called once per frame
@@ -28,12 +34,25 @@ public class EX_3_1_MyScript : MonoBehaviour
         // Update the sphere positions
         Checker.transform.localPosition = CheckerPosition;
         Stripe.transform.localPosition = StripePosition;
+        Third.transform.localPosition = ThirdPosition;
 
         // Apply Pythagorean Theorem to compute distance
         float dx = StripePosition.x - CheckerPosition.x;
         float dy = StripePosition.y - CheckerPosition.y;
         float dz = StripePosition.z - CheckerPosition.z;
         DistanceBetween = Mathf.Sqrt(dx*dx + dy*dy + dz*dz);
+
+        //Apply Pythagorean Theorem to compute distance between Checker and Third
+        float dxCT = CheckerPosition.x - ThirdPosition.x;
+        float dyCT = CheckerPosition.y - ThirdPosition.y;
+        float dzCT = CheckerPosition.y - ThirdPosition.z;
+        DistanceCAndT = Mathf.Sqrt(dxCT*dxCT + dyCT*dyCT + dzCT*dzCT);
+
+        //Apply Pythagorean Theorem to compute distance between Stripe and Third
+        float dxST = StripePosition.x - ThirdPosition.x;
+        float dyST = StripePosition.y - ThirdPosition.y;
+        float dzST = StripePosition.z - ThirdPosition.z;
+        DistanceSAndT = Mathf.Sqrt(dxST*dxST + dyST*dyST + dzST*dzST);
 
         // Compute the magnitude of a Vector3 
         Vector3 diff = StripePosition - CheckerPosition;
