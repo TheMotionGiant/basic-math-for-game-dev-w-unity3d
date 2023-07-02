@@ -39,7 +39,7 @@ public class EX_3_2_MyScript : MonoBehaviour
 
         // Step 4: Testing and showing collision status
         bool isInside = (DistanceBetween <= CarBoundRadius);
-        // TheCar.SetActive(!isInside);  // what does this do?
+        TheCar.SetActive(!isInside);  // what does this do?
         if (isInside)
         {
             Debug.Log("Inside!! Distance:" + DistanceBetween);
