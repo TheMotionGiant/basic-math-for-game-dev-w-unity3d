@@ -91,6 +91,8 @@ public class EX_4_1_MyScript : MonoBehaviour
 
             // Step 2: demonstrate P2 is indeed Vd away from P1
             P2.transform.localPosition = P1.transform.localPosition + vectorVd;
+
+            Debug.Log(vectorVd.magnitude);
         }
         #endregion
 
@@ -109,7 +111,10 @@ public class EX_4_1_MyScript : MonoBehaviour
 
             // Step 2: demonstrate Pe is indeed Ve away from the origin
             Pe.transform.localPosition = vectorVe;
+
+            Debug.Log(vectorVe.magnitude);
         }
         #endregion
+            
     }
 }
