@@ -523,6 +523,7 @@ MonoBehaviour:
   DrawAxisFrame: 1
   DrawScaledVector: 0
   DrawUnitVector: 0
+  eNormVectX: 0
   DrawPositionVector: 0
   DrawVectorComponents: 0
   P1: {fileID: 1210266994}
