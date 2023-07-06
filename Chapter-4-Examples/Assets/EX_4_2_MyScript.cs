@@ -96,6 +96,11 @@ public class EX_4_2_MyScript : MonoBehaviour
         }
 
         if (DrawUnitVector) {
+            if (vectorVa.magnitude < float.Epsilon)
+            {
+                DrawUnitVector = false;
+                return;
+            }
             Vector3 unitVa = (1.0f / vectorVa.magnitude) * vectorVa;  // scale Va by its inversed size
             // Vector3 dirVa = vectorVa.normalized;  // Alternative way of computing normalized Va
             switch (eNormVectX)
