@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,6 +17,7 @@ public class EX_4_3_MyScript : MonoBehaviour
     public float AgentDistance = 3.0f;     // Distance to explore before returning to base
 
     public GameObject RedTarget = null;   // The RedTarget
+    public float RedTargetDistanceLimits = 2f;
 
     private MyVector ShowVelocity = null;   // Visualizing Explorer Velocity
 
@@ -33,7 +35,7 @@ public class EX_4_3_MyScript : MonoBehaviour
             VectorColor = Color.green
         };
 
-        // initially Agent is resting insdie the Explorer
+        // initially Agent is resting inside the Explorer
         GreenAgent.transform.localPosition = CheckeredExplorer.transform.localPosition;
     }
 
@@ -64,7 +66,15 @@ public class EX_4_3_MyScript : MonoBehaviour
             Vector3 vEA = GreenAgent.transform.localPosition - CheckeredExplorer.transform.localPosition;
             if (vEA.magnitude > AgentDistance)
                 GreenAgent.transform.localPosition = CheckeredExplorer.transform.localPosition;
-            #endregion           
+            #endregion
+
+            #region Check if CheckeredExplorer is within RedTargetDistanceLimits
+            if (vET.magnitude < RedTargetDistanceLimits)
+            {
+                CheckeredExplorer.transform.localPosition -= (RedTarget.transform.localPosition - CheckeredExplorer.transform.localPosition) / RedTargetDistanceLimits;
+                BeginExplore = false;
+            }
+            #endregion
         }
     }
 }
