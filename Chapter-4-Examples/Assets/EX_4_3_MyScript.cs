@@ -15,6 +15,7 @@ public class EX_4_3_MyScript : MonoBehaviour
     public GameObject GreenAgent = null;   // Support the GreenAgent
     public float AgentSpeed = 1.0f;        // units per second
     public float AgentDistance = 3.0f;     // Distance to explore before returning to base
+    private bool agentVelocityNegative = false;
 
     public GameObject RedTarget = null;   // The RedTarget
     public float RedTargetDistanceLimits = 2f;
@@ -37,6 +38,7 @@ public class EX_4_3_MyScript : MonoBehaviour
 
         // initially Agent is resting inside the Explorer
         GreenAgent.transform.localPosition = CheckeredExplorer.transform.localPosition;
+
     }
 
     // Update is called once per frame
@@ -73,6 +75,21 @@ public class EX_4_3_MyScript : MonoBehaviour
             {
                 CheckeredExplorer.transform.localPosition -= (RedTarget.transform.localPosition - CheckeredExplorer.transform.localPosition) / RedTargetDistanceLimits;
                 BeginExplore = false;
+            }
+            #endregion
+
+            #region Check if Agent is within RedTargetDistanceLimits
+            Vector3 vTA = GreenAgent.transform.localPosition - RedTarget.transform.localPosition;
+            if (vTA.magnitude < RedTargetDistanceLimits)
+            {
+                agentVelocityNegative = true;
+            }
+            #endregion
+
+            #region Check if agentVelocity is true or false
+            if (agentVelocityNegative = true)
+            {
+
             }
             #endregion
         }
