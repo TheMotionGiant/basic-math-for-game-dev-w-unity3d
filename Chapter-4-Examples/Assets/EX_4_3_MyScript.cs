@@ -11,14 +11,16 @@ public class EX_4_3_MyScript : MonoBehaviour
 
     public GameObject CheckeredExplorer = null; // Support CheckeredExplorer
     public float ExplorerSpeed = 0.05f;    // units per second  
+    public float CheckeredExplorerDistanceLimits = 1f;
 
     public GameObject GreenAgent = null;   // Support the GreenAgent
     public float AgentSpeed = 1.0f;        // units per second
     public float AgentDistance = 3.0f;     // Distance to explore before returning to base
-    private bool agentVelocityNegative = false;
+    public Vector3 agentVelocity;
+    public bool agentVelocityNegative = false;
 
     public GameObject RedTarget = null;   // The RedTarget
-    public float RedTargetDistanceLimits = 2f;
+    public float RedTargetDistanceLimits = 1f;
 
     private MyVector ShowVelocity = null;   // Visualizing Explorer Velocity
 
@@ -51,7 +53,8 @@ public class EX_4_3_MyScript : MonoBehaviour
         ShowVelocity.Direction = vET;
         ShowVelocity.DrawVector = DrawVelocity;
 
-        if (BeginExplore) {
+        if (BeginExplore)
+        {
             float dToTarget = vET.magnitude;  // Distance to target
             if (dToTarget < float.Epsilon)
                 return;  // Avoid normlaizing a zero vector
@@ -63,7 +66,7 @@ public class EX_4_3_MyScript : MonoBehaviour
             #endregion
 
             #region Process the Agent (small green sphere)
-            Vector3 agentVelocity = AgentSpeed * vETn; // define velocity
+            agentVelocity = AgentSpeed * vETn; // define velocity
             GreenAgent.transform.localPosition += agentVelocity * Time.deltaTime; ;   // update position
             Vector3 vEA = GreenAgent.transform.localPosition - CheckeredExplorer.transform.localPosition;
             if (vEA.magnitude > AgentDistance)
@@ -78,20 +81,33 @@ public class EX_4_3_MyScript : MonoBehaviour
             }
             #endregion
 
+            #region Check if Agent is within CheckerExplorerDistanceLimits
+            if (vEA.magnitude < CheckeredExplorerDistanceLimits)
+            {
+                if (agentVelocityNegative)
+                {
+                    invertAgentVelocity();
+                }
+                agentVelocityNegative = false;
+            }
+            #endregion
+
             #region Check if Agent is within RedTargetDistanceLimits
             Vector3 vTA = GreenAgent.transform.localPosition - RedTarget.transform.localPosition;
             if (vTA.magnitude < RedTargetDistanceLimits)
             {
+                if (!agentVelocityNegative)
+                {
+                    invertAgentVelocity();  
+                }
                 agentVelocityNegative = true;
             }
             #endregion
-
-            #region Check if agentVelocity is true or false
-            if (agentVelocityNegative = true)
-            {
-
-            }
-            #endregion
         }
+    }
+
+    private void invertAgentVelocity()
+    {
+        AgentSpeed *= -1;
     }
 }

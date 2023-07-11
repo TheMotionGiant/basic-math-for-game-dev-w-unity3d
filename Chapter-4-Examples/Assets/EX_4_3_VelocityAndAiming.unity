@@ -628,15 +628,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96156d0fbf7eb74daf49fc209d3c70b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DrawVelocity: 1
+  DrawVelocity: 0
   BeginExplore: 1
   CheckeredExplorer: {fileID: 2108008940}
-  ExplorerSpeed: 0.77
+  ExplorerSpeed: 0
+  CheckeredExplorerDistanceLimits: 0.5
   GreenAgent: {fileID: 2035964324}
   AgentSpeed: 1
-  AgentDistance: 3
+  AgentDistance: 15
+  agentVelocity: {x: 0, y: 0, z: 0}
+  agentVelocityNegative: 0
   RedTarget: {fileID: 871061144}
-  RedTargetDistanceLimits: 2
+  RedTargetDistanceLimits: 0.5
 --- !u!1 &1117636060
 GameObject:
   m_ObjectHideFlags: 0
