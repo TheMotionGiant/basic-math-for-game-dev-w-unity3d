@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class EX_4_4_MyScript : MonoBehaviour
 {
-    public GameObject P0, P1, P2;    // V1=P1-P0 and V2=P2-p1
+    public GameObject P0, P1, P2, P3;    // V1=P1-P0 and V2=P2-PS1 V3 = P3-P2
     private MyVector ShowV1atP0, ShowV2atV1, // Show V1 at P0 and V2 at head of V1
                      ShowV2atP0, ShowV1atV2, // Show V2 at P0 and V1 at head of V2
                      ShowSumV12, ShowSumV21, // V1+V2, and V2+V1
+                     ShowSumV123, ShowVSumatP0,
                      ShowSubV12,         // V1-V2
                      ShowNegV2;          // -V2
 
@@ -16,6 +17,7 @@ public class EX_4_4_MyScript : MonoBehaviour
     public bool DrawAxisFrame = true;
     public bool DrawV12 = false, DrawV21 = false;
     public bool DrawSum = false;
+    public bool DrawSum123 = false;
     public bool DrawSub = false, DrawNegV2 = false;
     public bool DrawPosVec = false;
 
@@ -25,6 +27,7 @@ public class EX_4_4_MyScript : MonoBehaviour
         Debug.Assert(P0 != null);
         Debug.Assert(P1 != null);
         Debug.Assert(P2 != null);
+        Debug.Assert(P3 != null);
 
         ShowV1atP0 = new MyVector()
         {
@@ -62,6 +65,17 @@ public class EX_4_4_MyScript : MonoBehaviour
         {
             VectorColor = Color.green
         };
+
+        ShowSumV123 = new MyVector()
+        {
+            VectorColor = Color.magenta
+        };
+
+        ShowVSumatP0 = new MyVector()
+        {
+            VectorColor = Color.cyan
+        };
+
         PosSum = new MyVector()
         {
             VectorAt = Vector3.zero,
@@ -94,8 +108,11 @@ public class EX_4_4_MyScript : MonoBehaviour
     {
         Vector3 V1 = P1.transform.localPosition - P0.transform.localPosition;
         Vector3 V2 = P2.transform.localPosition - P1.transform.localPosition;
+        Vector3 V3 = P3.transform.localPosition - P2.transform.localPosition;
+
         Vector3 sumV12 = V1 + V2;
         Vector3 sumV21 = V2 + V1;
+        Vector3 sumV123 = V1 + V2 + V3;
         Vector3 negV2 = -V2;
         Vector3 subV12 = V1 + negV2;
 
@@ -114,6 +131,9 @@ public class EX_4_4_MyScript : MonoBehaviour
         PosSum.DrawVector = DrawPosVec && DrawSum;
         PosSub.DrawVector = DrawPosVec && DrawSub;
         PosNegV2.DrawVector = DrawPosVec && DrawNegV2;
+
+        ShowSumV123.DrawVector = DrawSum123;
+        ShowVSumatP0.DrawVector = DrawSum123;
         #endregion
 
         #region V1: Show V1 at P0 and head of V2
@@ -153,6 +173,12 @@ public class EX_4_4_MyScript : MonoBehaviour
 
         PosSum.Direction = sumV12;
         PosSum.Magnitude = sumV12.magnitude;
+        #endregion
+
+        #region VSum: show VSum123 at P0 and head of V3
+        ShowVSumatP0.VectorAt = P0.transform.localPosition;
+        ShowVSumatP0.Direction = sumV123;
+        ShowVSumatP0.Magnitude = sumV123.magnitude;
         #endregion
 
         #region Sub: show V1-V2 
