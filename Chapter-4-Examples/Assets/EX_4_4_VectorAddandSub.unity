@@ -633,8 +633,9 @@ MonoBehaviour:
   P2: {fileID: 1807244150}
   P3: {fileID: 40294141}
   DrawAxisFrame: 1
-  DrawV12: 1
+  DrawV12: 0
   DrawV21: 0
+  DrawV23: 0
   DrawSum: 0
   DrawSum123: 0
   DrawSub: 0

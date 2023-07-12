@@ -8,18 +8,24 @@ public class EX_4_4_MyScript : MonoBehaviour
     private MyVector ShowV1atP0, ShowV2atV1, // Show V1 at P0 and V2 at head of V1
                      ShowV2atP0, ShowV1atV2, // Show V2 at P0 and V1 at head of V2
                      ShowSumV12, ShowSumV21, // V1+V2, and V2+V1
+                     ShowSumV23,
                      ShowSumV123, ShowVSumatP0,
+                     ShowV3atP3,
+                     
                      ShowSubV12,         // V1-V2
+                     ShowSubV23,
                      ShowNegV2;          // -V2
 
     private MyVector PosV1, PosV2, PosSum, PosSub, PosNegV2; // Show as position vectors
 
     public bool DrawAxisFrame = true;
     public bool DrawV12 = false, DrawV21 = false;
+    public bool DrawV23 = false;
     public bool DrawSum = false;
     public bool DrawSum123 = false;
     public bool DrawSub = false, DrawNegV2 = false;
     public bool DrawPosVec = false;
+    public bool DrawV3atP3 = false;
 
     // Start is called before the first frame update
     void Start()
@@ -66,6 +72,11 @@ public class EX_4_4_MyScript : MonoBehaviour
             VectorColor = Color.green
         };
 
+        ShowSumV23 = new MyVector()
+        {
+            VectorColor = Color.cyan
+        };
+
         ShowSumV123 = new MyVector()
         {
             VectorColor = Color.magenta
@@ -74,6 +85,11 @@ public class EX_4_4_MyScript : MonoBehaviour
         ShowVSumatP0 = new MyVector()
         {
             VectorColor = Color.cyan
+        };
+
+        ShowV3atP3 = new MyVector()
+        {
+            VectorColor = Color.grey
         };
 
         PosSum = new MyVector()
@@ -86,6 +102,12 @@ public class EX_4_4_MyScript : MonoBehaviour
         {
             VectorColor = Color.gray
         };
+
+        ShowSubV23 = new MyVector()
+        {
+            VectorColor = Color.cyan
+        };
+
         PosSub = new MyVector()
         {
             VectorAt = Vector3.zero,
@@ -112,9 +134,12 @@ public class EX_4_4_MyScript : MonoBehaviour
 
         Vector3 sumV12 = V1 + V2;
         Vector3 sumV21 = V2 + V1;
+        Vector3 sumV23 = V2 + V3;
         Vector3 sumV123 = V1 + V2 + V3;
         Vector3 negV2 = -V2;
+        Vector3 negV3 = -V3;
         Vector3 subV12 = V1 + negV2;
+        Vector3 subV23 = V2 + negV3;
 
         #region Draw control: switch on/off what to show
         AxisFrame.ShowAxisFrame = DrawAxisFrame;    // Draw or Hide Axis Frame
@@ -124,7 +149,9 @@ public class EX_4_4_MyScript : MonoBehaviour
         ShowV2atP0.DrawVector = DrawV21;
         ShowV1atV2.DrawVector = DrawV21;
         ShowSumV21.DrawVector = DrawSum;
+        ShowSumV23.DrawVector = DrawSum;
         ShowSubV12.DrawVector = DrawSub;
+        ShowSubV23.DrawVector = DrawSub;
         ShowNegV2.DrawVector = DrawNegV2;
         PosV1.DrawVector = DrawPosVec && (DrawV12 || DrawV21);
         PosV2.DrawVector = DrawPosVec && (DrawV12 || DrawV21);
@@ -134,6 +161,9 @@ public class EX_4_4_MyScript : MonoBehaviour
 
         ShowSumV123.DrawVector = DrawSum123;
         ShowVSumatP0.DrawVector = DrawSum123;
+        ShowSumV23.DrawVector = DrawV23;
+
+        ShowV3atP3.DrawVector = DrawV3atP3;
         #endregion
 
         #region V1: Show V1 at P0 and head of V2
@@ -173,6 +203,23 @@ public class EX_4_4_MyScript : MonoBehaviour
 
         PosSum.Direction = sumV12;
         PosSum.Magnitude = sumV12.magnitude;
+        #endregion
+
+        #region V3: show V3 at P3
+        if (DrawV3atP3)
+        {
+            ShowV3atP3.VectorAt = P3.transform.localPosition;
+            ShowV3atP3.Direction = V3;
+            ShowV3atP3.Magnitude = V3.magnitude;
+
+            ShowSumV12.VectorAt = P3.transform.localPosition;
+            ShowSumV12.Direction = sumV12;
+            ShowSumV12.Magnitude = sumV12.magnitude;
+
+            ShowSumV23.VectorAt = P3.transform.localPosition;
+            ShowSumV23.Direction = sumV23;
+            ShowSumV23.Magnitude = sumV23.magnitude;
+        }
         #endregion
 
         #region VSum: show VSum123 at P0 and head of V3
