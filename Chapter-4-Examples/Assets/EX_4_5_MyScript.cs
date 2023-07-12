@@ -17,11 +17,13 @@ public class EX_4_5_MyScript : MonoBehaviour
     public float WindSpeed = 0.01f;
     public bool ApplyWind = false;
     public bool DrawWind = false;
+    public bool CompensateWind = false;
+    public bool RandomWind = false;
 
     private MyVector ShowVelocity = null;
     private MyVector ShowWindVector = null;
     private MyVector ShowActualVelocity = null;
-
+    private MyVector ShowWindCompensationVector = null;
 
     // Start is called before the first frame update
     void Start()
@@ -44,11 +46,36 @@ public class EX_4_5_MyScript : MonoBehaviour
             VectorColor = new Color(0.3f, 0.3f, 0.8f, 1.0f),
             DrawVectorComponents = false
         };
+
+        ShowWindCompensationVector = new MyVector() {
+            VectorColor = Color.magenta,
+            DrawVectorComponents = false
+        };
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        //10% Chance of wind
+        if (RandomWind)
+        {
+            if (Random.Range(1, 100) < 11)
+            {
+                WindSpeed = ((float)Random.Range(1, 100)) / 100;
+            }
+            else
+            {
+                WindSpeed = 0.0f;
+            }
+        }
+        else
+        {
+            WindSpeed = 0.0f;
+        }
+        
+        
+        
         Vector3 vDir = RedTarget.transform.localPosition - TravelingBall.transform.localPosition;
         float distance = vDir.magnitude;
 
@@ -60,6 +87,7 @@ public class EX_4_5_MyScript : MonoBehaviour
             Vector3 vT = BallSpeed * vDir;
             Vector3 vWind = WindSpeed * WindDirection;
             Vector3 vA = vT + vWind;
+            Vector3 vC = vA - vWind;
 
             #region Display the vectors
             ShowVelocity.VectorAt = TravelingBall.transform.localPosition;
@@ -76,15 +104,31 @@ public class EX_4_5_MyScript : MonoBehaviour
             ShowActualVelocity.Direction = vA;
             ShowActualVelocity.Magnitude = vA.magnitude * VelocityDrawFactor;
             ShowActualVelocity.DrawVector = DrawWind;
+
+            ShowWindCompensationVector.VectorAt = TravelingBall.transform.localPosition + (ShowVelocity.Magnitude * ShowVelocity.Direction);
+            ShowWindCompensationVector.Direction = WindDirection;
+            ShowWindCompensationVector.Magnitude = -WindSpeed * VelocityDrawFactor;
+            ShowWindCompensationVector.DrawVector = CompensateWind;
             #endregion 
 
             if (PauseMovement)
                 return;
-        
+
             if (ApplyWind)
-                TravelingBall.transform.localPosition += vA * Time.deltaTime;
+            {
+                if (CompensateWind)
+                {
+                    TravelingBall.transform.localPosition += vC * Time.deltaTime;
+                }
+                else
+                {
+                    TravelingBall.transform.localPosition += vA * Time.deltaTime;
+                }
+            }
             else
+            {
                 TravelingBall.transform.localPosition += vT * Time.deltaTime;
+            }
         }
     }
 }

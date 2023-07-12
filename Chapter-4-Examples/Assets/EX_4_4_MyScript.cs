@@ -205,23 +205,6 @@ public class EX_4_4_MyScript : MonoBehaviour
         PosSum.Magnitude = sumV12.magnitude;
         #endregion
 
-        #region V3: show V3 at P3
-        if (DrawV3atP3)
-        {
-            ShowV3atP3.VectorAt = P3.transform.localPosition;
-            ShowV3atP3.Direction = V3;
-            ShowV3atP3.Magnitude = V3.magnitude;
-
-            ShowSumV12.VectorAt = P3.transform.localPosition;
-            ShowSumV12.Direction = sumV12;
-            ShowSumV12.Magnitude = sumV12.magnitude;
-
-            ShowSumV23.VectorAt = P3.transform.localPosition;
-            ShowSumV23.Direction = sumV23;
-            ShowSumV23.Magnitude = sumV23.magnitude;
-        }
-        #endregion
-
         #region VSum: show VSum123 at P0 and head of V3
         ShowVSumatP0.VectorAt = P0.transform.localPosition;
         ShowVSumatP0.Direction = sumV123;
