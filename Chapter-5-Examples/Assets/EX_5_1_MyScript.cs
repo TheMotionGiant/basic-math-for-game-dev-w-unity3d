@@ -62,9 +62,9 @@ public class EX_5_1_MyScript : MonoBehaviour
         float dot = Vector3.Dot(v1, v2);
         if ((v1.magnitude > float.Epsilon) && (v2.magnitude > float.Epsilon))
         {
-            cosTheta = dot / (v1.magnitude * v2.magnitude);
+            //cosTheta = dot / (v1.magnitude * v2.magnitude);
             // Alternatively,
-            //   costTheta = Vector3.Dot(v1.normalize, v2.normalize)
+            cosTheta = Vector3.Dot(v1.normalized, v2.normalized);
             theta = Mathf.Acos(cosTheta) * Mathf.Rad2Deg;
         }
         Debug.Log("Dot result=" + dot + " cosTheta=" + cosTheta + " angle=" + theta);
