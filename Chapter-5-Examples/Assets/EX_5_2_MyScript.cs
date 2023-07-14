@@ -69,7 +69,9 @@ public class EX_5_2_MyScript : MonoBehaviour
             switch (ProjChoice)
             {
                 case ProjectionChoice.V1OntoV2:
-                    float v1LengthonV2 = Vector3.Dot(v1, v2.normalized);
+                    //float v1LengthonV2 = Vector3.Dot(v1, v2.normalized);
+                    float cosTheta = Vector3.Dot(v1.normalized, v2.normalized);
+                    float v1LengthonV2 = v1.magnitude * cosTheta;
                     Debug.Log("Projection Result: Length of V1 along V2 = " + v1LengthonV2);
                     break;
                 case ProjectionChoice.V2OntoV1:
